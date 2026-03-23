@@ -1,10 +1,27 @@
 "use client";
 
+import { useEffect } from "react";
+
 export default function Home() {
+  useEffect(() => {
+    const isFacebookApp = /FBAN|FBAV|FB4A|FBAndroidApp/.test(
+      navigator.userAgent
+    );
+  }, []);
+
   const handleOpenInBrowser = () => {
-    const url = typeof window !== "undefined" ? window.location.href : "";
-    if (typeof window !== "undefined") {
-      window.location.href = url;
+    const currentUrl = window.location.href;
+
+    if (/android/i.test(navigator.userAgent)) {
+      window.location.href = `intent://${currentUrl.replace(
+        /^https?:\/\//,
+        ""
+      )}#Intent;scheme=https;action=android.intent.action.VIEW;end`;
+    } else {
+      const newWindow = window.open(currentUrl, "_blank");
+      if (!newWindow || newWindow.closed || typeof newWindow.closed == "undefined") {
+        window.location.href = currentUrl;
+      }
     }
   };
 
