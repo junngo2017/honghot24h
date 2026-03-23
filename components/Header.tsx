@@ -12,7 +12,7 @@ export default function Header() {
             <span className="text-white font-bold text-2xl">H</span>
           </div>
           <span className="font-bold text-xl text-gray-800">
-            Tuấn Anh Gà
+            honghot365
           </span>
         </Link>
 
